@@ -7,6 +7,6 @@ inputs:
     path: azureml:diabetes-folder:1
   reg_rate: 0.01
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-compute: local
+compute: azureml:jrcomp1
 experiment_name: run_python_test
 description: To run python in AML environment to train and test a model based on dibetes data
