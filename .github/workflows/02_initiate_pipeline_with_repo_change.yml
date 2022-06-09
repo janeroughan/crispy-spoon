@@ -29,10 +29,10 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Set Azure ML workspace as default
       run: |
-        az configure --defaults group="${{ github.event.inputs.resource_group }}"
-        az configure --defaults workspace="${{ github.event.inputs.aml_workspace }}"
+        az configure --defaults group="rg-dev-mlops"
+        az configure --defaults workspace="mlw-dev-mlops"
     - name: Create pipeline in Azure ML workspace
       run: |  
         cd src
-        az ml job create -f job.yml -g "${{ github.event.inputs.resource_group }}" -w "${{ github.event.inputs.aml_workspace }}"
+        az ml job create -f job.yml 
         
