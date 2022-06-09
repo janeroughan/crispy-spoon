@@ -1,4 +1,5 @@
 name: create aml pipeline
+
 on:
   workflow_dispatch:
     inputs:
@@ -28,4 +29,5 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Create pipeline in Azure ML workspace
       run: |  
-        az ml job create -f job.yml -g "${{github.event.inputs.resource_group}}" -w "${{github.event.inputs.aml_workspace}}"
+        cd src
+        
