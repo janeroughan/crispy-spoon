@@ -1,18 +1,7 @@
-name: initiate aml pipeline triggered by repo change
+name: initiate aml pipeline triggered by repo merge change
 
 on:
   push:
-    inputs:
-      resource_group:
-        description: 'Resource group name'
-        required: true
-        default: 'rg-dev-mlops' 
-        type: string
-      aml_workspace:
-        description: 'Azure Machine Learning workspace name'
-        required: true
-        default: 'mlw-dev-mlops' 
-        type: string
 
 
 jobs:
