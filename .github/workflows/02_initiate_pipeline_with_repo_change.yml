@@ -34,6 +34,5 @@ jobs:
     - name: Create pipeline in Azure ML workspace
       run: |  
         cd src
-        az version
-        az ml job create -f job.yml 
+        az ml job create -f job.yml -g "${{ github.event.inputs.resource_group }}" -w "${{ github.event.inputs.aml_workspace }}"
         
