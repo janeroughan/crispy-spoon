@@ -27,8 +27,14 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
+    - name: Set Azure ML workspace as default
+      run: |
+        az configure --defaults group="${{ github.event.inputs.resource_group }}"
+        az configure --defaults workspace="${{ github.event.inputs.aml_workspace }}"
+    - name: Create dataset in Azure ML workspace
     - name: Create pipeline in Azure ML workspace
       run: |  
         cd src
         az version
+        az ml job create -f job.yml 
         
