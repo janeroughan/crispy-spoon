@@ -12,6 +12,8 @@ on:
         required: true
         default: 'mlw-dev-mlops' 
         type: string
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,5 +28,6 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Create pipeline in Azure ML workspace
       run: |  
+        echo ${{secrets.AZURE_CREDENTIALS}}
         cd src
         az ml job create -f job.yml -g "${{github.event.inputs.resource_group}}" -w "${{github.event.inputs.aml_workspace}}"
