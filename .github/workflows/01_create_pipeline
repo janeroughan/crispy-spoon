@@ -1,5 +1,7 @@
-name: Stop compute instance
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
 
+name: create aml pipeline
 on:
   workflow_dispatch:
     inputs:
@@ -13,12 +15,6 @@ on:
         required: true
         default: 'mlw-dev-mlops' 
         type: string
-      compute:
-        description: 'Azure Machine Learning compute instance name'
-        required: true
-        default: 'jrcomp1' 
-        type: string
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,6 +27,10 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: Stop Azure Machine Learning compute instance
+    - name: Set Azure ML workspace as default
       run: |
-        az ml compute stop -n "${{ github.event.inputs.compute }}" -w "${{ github.event.inputs.aml_workspace }}" -g "${{ github.event.inputs.resource_group }}"
+        az configure --defaults group="${{ github.event.inputs.resource_group }}"
+        az configure --defaults workspace="${{ github.event.inputs.aml_workspace }}"
+    - name: Create pipeline in Azure ML workspace
+      run: |
+        az ml job create --file src/job.yml --resource-group "${{github.event.inputs.resource_group}}" --workspace-name "${{github.event.inputs.aml_workspace}}"
