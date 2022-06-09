@@ -30,4 +30,5 @@ jobs:
     - name: Create pipeline in Azure ML workspace
       run: |  
         cd src
+        az version
         
